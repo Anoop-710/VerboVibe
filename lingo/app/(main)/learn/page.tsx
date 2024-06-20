@@ -2,45 +2,44 @@ import { FeedWrapper } from "../../../components/feed-wrapper";
 import { StickyWrapper } from "../../../components/sticky-wrapper";
 import { Header } from "./header";
 import { UserProgress } from "../../../components/user-progress";
-// import {
-//   getCourseProgress,
-//   getLessonPercentage,
-//   getUnits,
-//   getUserProgress,
-//   getUserSubscription,
-// } from "@/db/queries";
-// import { redirect } from "next/navigation";
+import {
+  // getCourseProgress,
+  // getLessonPercentage,
+  // getUnits,
+  getUserProgress,
+  // getUserSubscription,
+} from "@/db/queries";
+import { redirect } from "next/navigation";
 // import { Unit } from "./unit";
 // import { lessons, units as unitsSchema } from "@/db/schema";
 // import { Promo } from "@/components/promo";
 // import { Quests } from "@/components/quests";
 
 const LearnPage = async () => {
-  // const userProgressData = getUserProgress();
+  const userProgressData = getUserProgress();
   // const courseProgressData = getCourseProgress();
   // const lessonPercentageData = getLessonPercentage();
   // const unitsData = getUnits();
   // const userSubscriptionData = getUserSubscription();
 
-  // const [
-  //     userProgress,
-  //     units,
-  //     courseProgress,
-  //     lessonPercentage,
-  //     userSubscription
-  // ] = await Promise.all([
-  //     userProgressData,
-  //     unitsData,
-  //     courseProgressData,
-  //     lessonPercentageData,
-  //     userSubscriptionData
-  // ]);
+  const [
+    userProgress,
+    // units,
+    // courseProgress,
+    // lessonPercentage,
+    // userSubscription,
+  ] = await Promise.all([
+    userProgressData,
+    // unitsData,
+    // courseProgressData,
+    // lessonPercentageData,
+    // userSubscriptionData
+  ]);
 
   // // if no check we will need ? for typeof as well as where there is userProgress.active etc.
-  // if (!userProgress || !userProgress.activeCourse) {
-  //     // acts as return nothing will run after this redirect
-  //     redirect("/courses");
-  // }
+  if (!userProgress || !userProgress.activeCourse) {
+    redirect("/courses");
+  }
 
   // if (!courseProgress) {
   //     redirect("/courses");

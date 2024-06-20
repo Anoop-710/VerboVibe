@@ -1,15 +1,15 @@
 "use client";
 
-import { courses } from "@/db/schema";
+import { courses, userProgress } from "@/db/schema";
 import { Card } from "./card";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-// import { upsertUserProgress } from "@/actions/user-progress";
-// import { toast } from "sonner";
+import { upsertUserProgress } from "@/actions/user-progress";
+import { toast } from "sonner";
 
 type Props = {
   courses: (typeof courses.$inferSelect)[];
-  activeCourseId?: number;
+  activeCourseId?: typeof userProgress.$inferSelect.activeCourseId;
 };
 
 export const List = ({ courses, activeCourseId }: Props) => {
@@ -19,14 +19,13 @@ export const List = ({ courses, activeCourseId }: Props) => {
   const onClick = (id: number) => {
     if (pending) return;
 
-    // if (id === activeCourseId) {
-    //   return router.push("/learn");
-    // }
+    if (id === activeCourseId) {
+      return router.push("/learn");
+    }
 
-    // startTransition(()=>{
-    //     upsertUserProgress(id)
-    //         .catch(()=> toast.error("Something went wrong!"))
-    // });
+    startTransition(() => {
+      upsertUserProgress(id).catch(() => toast.error("Something went wrong!"));
+    });
   };
 
   return (
